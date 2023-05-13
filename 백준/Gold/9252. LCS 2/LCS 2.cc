@@ -1,74 +1,65 @@
 #include <iostream>
-#include <string.h>
-#include <algorithm>
+#include <stack>
 
 using namespace std;
 
-int dp[1000][1000];
+int dp[1001][1001];
 
-char str1[1001];
-char str2[1001];
-char answer[1001];
-
-int len1 = 0;
-int len2 = 0;
+stack <char> s;
 
 int main()
 {
-	scanf("%s", str1);
-	scanf("%s", str2);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-	len1 = strlen(str1);
-	len2 = strlen(str2);
+	char str1[1001], str2[1001];
 
-	for (int i = 1; i <= len1; i++)
+	cin >> str1 >> str2;
+
+	int i, j;
+
+	for (i = 0; str1[i] != 0; i++)
 	{
-		for (int j = 1; j <= len2; j++)
+		for (j = 0; str2[j] != 0; j++)
 		{
-			if (str1[i - 1] == str2[j - 1])
+			if (str1[i] == str2[j])
 			{
-				dp[i][j] = dp[i - 1][j - 1] + 1;
+				dp[i + 1][j + 1] = dp[i][j] + 1;
 			}
 			else
 			{
-				dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+				dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j]);
 			}
 		}
 	}
 
-	int i, j;
-	i = len1;
-	j = len2;
-
-	int idx = dp[len1][len2];
-
-
-	while (1)
+	cout << dp[i][j]<<'\n';
+	if (dp[i][j] > 0)
 	{
-		if (i < 0 || j < 0)
+		while (i > 0 && j > 0)
 		{
-			break;
+			if (dp[i - 1][j] == dp[i][j])
+			{
+				i = i - 1;
+			}
+			else if (dp[i][j - 1] == dp[i][j])
+			{
+				j = j - 1;
+			}
+			else
+			{
+				s.push(str1[i-1]);
+				i = i - 1;
+				j = j - 1;
+			}
 		}
-		if (dp[i][j] == dp[i - 1][j])
+
+		while (s.empty() == 0)
 		{
-			i = i - 1;
-		}
-		else if (dp[i][j] == dp[i][j - 1])
-		{
-			j = j - 1;
-		}
-		else
-		{
-			i = i - 1;
-			j = j - 1;
-			answer[--idx] = str1[i];
+			cout << s.top();
+			s.pop();
 		}
 	}
 
-	printf("%d\n", dp[len1][len2]);
-	if (dp[len1][len2]!=0)
-	{
-		printf("%s", answer);
-	}
-	
 }
