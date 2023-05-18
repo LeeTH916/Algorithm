@@ -40,18 +40,17 @@ int main()
 	while (!route.empty())
 	{
 		int cur = route.top().second;
-		int tmp_dist = -route.top().first;
 		route.pop();
 		if (visited[cur] == 1) continue;
 
 		visited[cur] = 1;
-		dist[cur] = tmp_dist;
 		
 
 		for (auto a : map[cur])
 		{
-			if (visited[a.first] == 0)
+			if (visited[a.first] == 0 && dist[a.first]>a.second+dist[cur])
 			{
+				dist[a.first] = a.second + dist[cur];
 				route.push(make_pair(-(a.second + dist[cur]), a.first));
 			}
 		}
