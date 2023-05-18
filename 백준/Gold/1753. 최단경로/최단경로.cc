@@ -8,7 +8,6 @@ using namespace std;
 vector<pair<int, char>> map[20001];
 priority_queue <pair<int, int>> route;
 int dist[20001];
-char visited[20001];
 
 int main()
 {
@@ -40,7 +39,10 @@ int main()
 	while (!route.empty())
 	{
 		int cur = route.top().second;
+		int tmp_dist = -route.top().first;
 		route.pop();
+
+		if (tmp_dist > dist[cur]) continue;
 
 		for (auto a : map[cur])
 		{
