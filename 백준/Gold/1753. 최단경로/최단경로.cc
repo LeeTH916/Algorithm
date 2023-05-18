@@ -41,20 +41,15 @@ int main()
 	{
 		int cur = route.top().second;
 		route.pop();
-		if (visited[cur] == 1) continue;
-
-		visited[cur] = 1;
-		
 
 		for (auto a : map[cur])
 		{
-			if (visited[a.first] == 0 && dist[a.first]>a.second+dist[cur])
+			if (dist[a.first]>a.second+dist[cur])
 			{
 				dist[a.first] = a.second + dist[cur];
 				route.push(make_pair(-(a.second + dist[cur]), a.first));
 			}
 		}
-
 	}
 
 	for (int i = 1; i <= V; i++)
