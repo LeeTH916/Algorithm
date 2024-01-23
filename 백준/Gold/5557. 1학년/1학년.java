@@ -20,12 +20,12 @@ public class Main
         
         dp[0][equation.get(0)] = 1;
         
-        for(int i=0;i<N-2;i++){
+        for(int i=1;i<N-1;i++){
             for(int j=0;j<21;j++){
-                if(j+equation.get(i+1) <= 20)
-                    dp[i+1][j+equation.get(i+1)] += dp[i][j];
-                if(j-equation.get(i+1) >= 0)
-                    dp[i+1][j-equation.get(i+1)] += dp[i][j];
+                if (j + equation.get(i) <= 20)
+                    dp[i][j + equation.get(i)] += dp[i - 1][j];
+                if (j - equation.get(i) >= 0)
+                    dp[i][j - equation.get(i)] += dp[i - 1][j];
             }
         }
         
