@@ -39,7 +39,7 @@ public class Main {
             Point cur = list.get(i);
             Point next = list.get((i+1)%N);
 
-            if(cur.y < 0 && next.y > 0 || cur.y >0 && next.y <0) {
+            if(cur.y * next.y <0) {
                 if(cur.y >= 0) {
                     next.y = 0;
                     upList.add(next);
@@ -55,19 +55,14 @@ public class Main {
         }
 
         Collections.sort(upList, (a,b) -> a.x-b.x);
-//        for(int i=0;i<upList.size();i++) {
-//            System.out.println(upList.get(i));
-//        }
 
         a = b = 0;
         v = 1;
-
 
         for(int i=0;i<upList.size();i++) {
             Point cur = upList.get(i);
 
             if(visited[cur.i] == 0) {
-//                System.out.println("cur : " + cur.i);
                 visited[cur.i] = v;
                 doDFS(cur.i);
                 v++;
@@ -95,11 +90,6 @@ public class Main {
 
 
         }
-//
-//        for(Point cur : upList) {
-//            System.out.print(visited[cur.i]+ " " );
-//        }
-//        System.out.println();
 
         System.out.println(a + " " + b);
     }
@@ -110,7 +100,6 @@ public class Main {
             int next = map[i].get(k);
             if(visited[next] == 0) {
                 visited[next] = v;
-//                System.out.println(next);
                 if(list.get(next).y == 0) return;
                 doDFS(next);
             }
