@@ -39,7 +39,7 @@ public class Main {
             Point cur = list.get(i);
             Point next = list.get((i+1)%N);
 
-            if(cur.y * next.y <0) {
+            if(cur.y < 0 && next.y > 0 || cur.y >0 && next.y <0) {
                 if(cur.y >= 0) {
                     next.y = 0;
                     upList.add(next);
